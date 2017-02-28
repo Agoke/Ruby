@@ -1,0 +1,42 @@
+
+=begin
+Потрібно написати код, який приймає 2 дати в мілісекундах (Unix timestamp),
+ а повертає різницю в читабельному для людини вигляді з правильними закінченнями в словах та словом "and" якщо є секунди.
+
+Для прикладу, якщо передані числа "1478779621" та "1478687791" - в результаті має вийти "1 day 1 hour 30 min and 30 seconds".
+
+=end
+
+
+def diff_times (time1, time2)
+  puts "The difference between time 1 (#{time1.to_i}) and time 2 (#{time2.to_i}) is: "
+  if time1>time2
+    result  = time1-time2 # difference in milliseconds
+    mm, ss = result.divmod(60) #return an array of minutes and seconds from result
+    hh, mm = mm.divmod(60)#return an array of hours and minutes from minutes
+    dd, hh = hh.divmod(24)# return an array of days and hours from hours
+    puts "%d days, %d hours %d minutes and %d seconds" % [dd,hh,mm,ss]
+  else
+    result  = time2-time1
+    mm, ss = result.divmod (60)
+    hh, mm = mm.divmod(60)
+    dd, hh = hh.divmod(24)
+    puts "%d days, %d hours %d minutes and %d seconds" % [dd,hh,mm,ss]
+  end
+end
+
+puts "Outputs"
+puts "*"*25
+diff_times 1478779621, 1478687791
+puts "*"*25
+diff_times 1478456766, 1484552166
+
+=begin
+Outputs
+*************************
+The difference between time 1 (1478779621) and time 2 (1478687791) is:
+1 days, 1 hours 30 minutes and 30 seconds
+*************************
+The difference between time 1 (1478456766) and time 2 (1484552166) is:
+70 days, 13 hours 10 minutes and 0 seconds
+=end
